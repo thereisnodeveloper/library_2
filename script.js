@@ -14,9 +14,9 @@ function Book(author,pages,isread){
 }
 
 
-
-takeUserInput('babo', 444)
-takeUserInput('ddong', 555)
+//placeholder books
+takeUserInput('Shakespeare', 444)
+takeUserInput('Mao Ze Dong', 555)
 
 
 function displayBooks(){
@@ -31,3 +31,14 @@ function displayBooks(){
 }
 
 displayBooks()
+
+
+const newBook = document.querySelector(".new-book")
+newBook.addEventListener("click", ()=>{
+    document.querySelector(".book-form").showModal()
+
+})
+
+function showModal(){
+    
+}
