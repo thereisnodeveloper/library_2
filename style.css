@@ -35,3 +35,9 @@ thead{
     background-color: #000000;
     color: #FFFF;
 }
+
+.book-form{
+    display: flex;
+    flex-direction: column;
+    gap:10px
+}
