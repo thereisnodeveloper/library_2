@@ -12,3 +12,7 @@ function Book(author,pages,isread){
     this.pages = pages;
     this.isread = false;
 }
+
+function displayBooks(){
+    
+}

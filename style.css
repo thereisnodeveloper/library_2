@@ -1,3 +1,37 @@
+
+
+caption{
+    font-family: "EchotopiaRegular";
+    margin-bottom: 8px;
+}
+
+
 body{
     background-color: grey;
+}
+
+table{
+    table-layout: fixed;
+    border:3px solid black;
+    border-collapse: collapse;
+}
+
+
+
+th,td{
+    padding: 5px;
+    border:1px solid black
+}
+
+tbody tr:nth-child(odd){
+    background-color: #adadad;
+}
+
+tbody tr:nth-child(even){
+    background-color: #777777;
+}
+
+thead{
+    background-color: #000000;
+    color: #FFFF;
 }
