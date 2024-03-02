@@ -35,7 +35,7 @@ displayBooks()
 
 const newBook = document.querySelector(".new-book")
 newBook.addEventListener("click", ()=>{
-    document.querySelector(".book-form-dialog").showModal()
+    document.querySelector(".book-form").showModal()
 
 })
 
