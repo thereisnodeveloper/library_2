@@ -1,8 +1,6 @@
 const libraryArray = [];
 
 const takeUserInput = function(titleInput,authorInput, pagesInput){
-    // const authorInput = prompt("enter author name")
-    // const pagesInput = prompt('enter # pages')
     libraryArray.push(new Book(titleInput, authorInput, pagesInput))
 }
 
@@ -29,6 +27,7 @@ function displayBooks(){
             td.textContent = value
         }
     })
+    
 }
 displayBooks()
 
@@ -45,8 +44,22 @@ closeModal.addEventListener("click", ()=>{
 })
 
 const submit = document.querySelector("button[type='submit']")
-submit.addEventListener("click", ()=>{
-    e.preventdefault
-    //TODO:add book to library
-    const formTitle = document.querySelector("#title").value
+
+submit.addEventListener("click", (e)=>{
+    e.preventDefault()
+    const formIsRead = document.querySelector("#isread")
+    const forms = document.querySelectorAll("form input:not(#isread)")
+    const formsArray = []
+    forms.forEach((formElement) =>{
+    formsArray.push(formElement.value)
 })
+    formsArray.push(formIsRead.checked)
+
+takeUserInput(...formsArray)
+modal.close()
+displayBooks()
+})
+
+
+
+
