@@ -35,3 +35,37 @@ thead{
     background-color: #000000;
     color: #FFFF;
 }
+
+.book-form{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    margin:10px
+}
+
+.book-form h3{
+    margin: 8px;
+    margin-top: 14px;
+}
+
+.close{
+    /* FIXME:don't know how to put X inside a circle and center it */
+    /* border: 1px solid black; */
+    font-size: 22px;
+    /* width:.5em;
+    height: .5em;
+    padding: 0.5em;
+    line-height: 1em;
+    text-align: center;
+    flex-grow: 0;
+    border-radius: 50%; */
+    /* background-color: #0270c3; */
+    color: black;
+    position: absolute;
+    right: 5px;
+    top:5px
+}
+
+.close:hover{
+    cursor: pointer
+}

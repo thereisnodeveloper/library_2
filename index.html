@@ -41,8 +41,26 @@
 
 <button class="new-book">New Book</button>
 
-<dialog class="book-form">
-    test
+<dialog class="book-form-dialog">
+    <div class="close">✖</div>
+
+    <form action="get" class="book-form">
+
+        <legend><h3>Enter book information:</h3></legend>
+        <label for="author" aria-required="true">Author <input type="text" id="author"
+        name="book_author" required></label>
+        <label for="title" aria-required="true">Title <input type="text"
+        id="title" name="book_title" required></label>
+        
+        <label for="pages" aria-required="true"># of Pages <input type="number"
+        id="pages" name="book_pages" required></label>
+
+        <label for="isread" aria-required="true">Is it read? <input type="checkbox"
+        id="isread" name="book_isread" required></label>
+        
+        <button type="submit">Submit</button>
+    </form>
+    <!-- TODO:add close button to modal -->
 </dialog>
 
     <script src="script.js"></script>

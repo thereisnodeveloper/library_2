@@ -29,16 +29,22 @@ function displayBooks(){
         }
     })
 }
-
 displayBooks()
 
+const modal = document.querySelector(".book-form-dialog")
 
 const newBook = document.querySelector(".new-book")
 newBook.addEventListener("click", ()=>{
-    document.querySelector(".book-form").showModal()
-
+    modal.showModal()
 })
 
-function showModal(){
-    
-}
+const closeModal = document.querySelector(".close")
+closeModal.addEventListener("click", ()=>{
+    modal.close()
+})
+
+const submit = document.querySelector("button[type='submit']")
+submit.addEventListener("click", ()=>{
+    e.preventdefault
+    //TODO:add book to library
+})
