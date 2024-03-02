@@ -18,18 +18,21 @@
     <tbody>
         <thead>
             <tr>
+                <th scope="col">Title</th>
                 <th scope="col">Author</th>
                 <th scope="col">Pages</th>
                 <th scope="col">IsRead</th>
             </tr>
         </thead>
         <tr>
+            <td>Harry Potter and the Russian</td>
             <td>tolstoy</td>
             <td>244</td>
             <td>true</td>
           
         </tr>
         <tr>
+            <td>Mein Kampf</td>
             <td>marx</td>
             <td>333</td>
             <td>true</td>
@@ -47,10 +50,10 @@
     <form action="get" class="book-form">
 
         <legend><h3>Enter book information:</h3></legend>
-        <label for="author" aria-required="true">Author <input type="text" id="author"
-        name="book_author" required></label>
         <label for="title" aria-required="true">Title <input type="text"
         id="title" name="book_title" required></label>
+        <label for="author" aria-required="true">Author <input type="text" id="author"
+        name="book_author" required></label>
         
         <label for="pages" aria-required="true"># of Pages <input type="number"
         id="pages" name="book_pages" required></label>
