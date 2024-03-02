@@ -19,6 +19,11 @@ takeUserInput('Chinese Manifesto','Mao Ze Dong', 555)
 
 
 function displayBooks(){
+    const tableRows = document.querySelectorAll("tbody > tr");
+    tableRows.forEach((row)=>{
+        row.remove()
+    })
+
     libraryArray.forEach((book)=>{
         const tbody = document.querySelector("tbody")
         const tr = tbody.insertRow()
@@ -27,7 +32,7 @@ function displayBooks(){
             td.textContent = value
         }
     })
-    
+
 }
 displayBooks()
 
