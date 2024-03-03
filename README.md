@@ -1,4 +1,11 @@
 #Concepts utilized
-- prototypes
-- Object.create
-- 
+
+prototypes
+
+Object.create
+
+forms
+
+iterating through objects
+
+table styling, manipulation

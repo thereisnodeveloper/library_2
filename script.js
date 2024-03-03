@@ -1,15 +1,15 @@
 const libraryArray = [];
 
-const takeUserInput = function(titleInput,authorInput, pagesInput){
-    libraryArray.push(new Book(titleInput, authorInput, pagesInput))
+const takeUserInput = function(titleInput,authorInput, pagesInput, isReadInput){
+    libraryArray.push(new Book(titleInput, authorInput, pagesInput, isReadInput))
 }
 
 //book constructor
-function Book(title, author,pages,isread){
+function Book(title, author,pages,isRead){
     this.title = title
     this.author = author;
     this.pages = pages;
-    this.isread = false;
+    this.isRead = isRead;
 }
 
 
@@ -65,12 +65,13 @@ function addNewBook(e){
     const formsArray = []
     forms.forEach((formElement) =>{
     formsArray.push(formElement.value)
-})
+    })
     formsArray.push(formIsRead.checked)
 
-takeUserInput(...formsArray)
-modal.close()
-displayBooks()
+
+    takeUserInput(...formsArray)
+    modal.close()
+    displayBooks()
 }
 
 function attachEventListenerToRemoveButton(){
@@ -88,7 +89,6 @@ function removeBook(e){
    console.log(libraryArray);
     //remove from display
     targetRow.remove()
-
 
 }
 
