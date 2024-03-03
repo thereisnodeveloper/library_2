@@ -36,9 +36,12 @@ function displayBooks(){
         }
         const tdRemoveButton = tr.insertCell()
         addRemoveButton(tdRemoveButton)
+        const tdReadButton = tr.insertCell()
+        addReadButton(tdReadButton)
         index++
     })
     attachEventListenerToRemoveButton()
+    attachEventListenerToReadButton()
 }
 // displayBooks()
 
@@ -80,16 +83,34 @@ removeButtons.forEach((removeButton)=>{
     removeButton.addEventListener("click", removeBook )
 })
 }
+
+function attachEventListenerToReadButton(){
+    const readButtons = document.querySelectorAll(".read")
+    readButtons.forEach((readButton)=>{
+        readButton.addEventListener("click", readBook )
+    })
+    }
+
 function removeBook(e){
     const targetRow = e.target.parentElement.parentElement 
 
     //remove from libraryArray
    const index = targetRow.getAttribute("index")
     libraryArray.splice(index,1)
-   console.log(libraryArray);
     //remove from display
     targetRow.remove()
 
+}
+
+function readBook(e){
+    const targetRow = e.target.parentElement.parentElement 
+    const index = targetRow.getAttribute("index")
+
+    //toggle isRead
+    if(libraryArray[index].isRead === true){
+        libraryArray[index].isRead = false
+    } else {libraryArray[index].isRead = true}
+    displayBooks()
 }
 
 function addRemoveButton(row){
@@ -97,6 +118,13 @@ function addRemoveButton(row){
     removeButton.classList.add("remove")
     removeButton.textContent = "Remove"
     row.appendChild(removeButton)
+}
+
+function addReadButton(row){
+    const readButton = document.createElement("button")
+    readButton.classList.add("read")
+    readButton.textContent= "Read"
+    row.appendChild(readButton)
 }
 
 attachEventListenerToRemoveButton()
