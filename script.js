@@ -24,8 +24,9 @@ function displayBooks(){
         row.remove()
     })
 
+    let index = 0
+
     libraryArray.forEach((book)=>{
-        let index = 0
         const tbody = document.querySelector("tbody")
         const tr = tbody.insertRow()
         tr.setAttribute("index", index)
@@ -55,7 +56,9 @@ closeModal.addEventListener("click", ()=>{
 
 const submit = document.querySelector("button[type='submit']")
 
-submit.addEventListener("click", (e)=>{
+submit.addEventListener("click", addNewBook)
+
+function addNewBook(e){
     e.preventDefault()
     const formIsRead = document.querySelector("#isread")
     const forms = document.querySelectorAll("form input:not(#isread)")
@@ -68,7 +71,7 @@ submit.addEventListener("click", (e)=>{
 takeUserInput(...formsArray)
 modal.close()
 displayBooks()
-})
+}
 
 function attachEventListenerToRemoveButton(){
 const removeButtons = document.querySelectorAll(".remove")
@@ -76,15 +79,13 @@ removeButtons.forEach((removeButton)=>{
     removeButton.addEventListener("click", removeBook )
 })
 }
-
 function removeBook(e){
     const targetRow = e.target.parentElement.parentElement 
-    console.log(targetRow);
 
     //remove from libraryArray
-   console.log(targetRow.firstElementChild.value)
-   const index = targetRow.getAttributes("index")
-   console.log(index);
+   const index = targetRow.getAttribute("index")
+    libraryArray.splice(index,1)
+   console.log(libraryArray);
     //remove from display
     targetRow.remove()
 
