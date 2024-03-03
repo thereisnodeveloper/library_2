@@ -14,8 +14,8 @@ function Book(title, author,pages,isread){
 
 
 //placeholder books
-takeUserInput('The Bible','Shakespeare', 444)
-takeUserInput('Chinese Manifesto','Mao Ze Dong', 555)
+// takeUserInput('The Bible','Shakespeare', 444)
+// takeUserInput('Chinese Manifesto','Mao Ze Dong', 555)
 
 
 function displayBooks(){
@@ -25,16 +25,21 @@ function displayBooks(){
     })
 
     libraryArray.forEach((book)=>{
+        let index = 0
         const tbody = document.querySelector("tbody")
         const tr = tbody.insertRow()
+        tr.setAttribute("index", index)
         for(const [key, value] of Object.entries(book)){
             const td = tr.insertCell()
             td.textContent = value
         }
+        const tdRemoveButton = tr.insertCell()
+        addRemoveButton(tdRemoveButton)
+        index++
     })
-
+    attachEventListenerToRemoveButton()
 }
-displayBooks()
+// displayBooks()
 
 const modal = document.querySelector(".book-form-dialog")
 
@@ -65,6 +70,32 @@ modal.close()
 displayBooks()
 })
 
+function attachEventListenerToRemoveButton(){
+const removeButtons = document.querySelectorAll(".remove")
+removeButtons.forEach((removeButton)=>{
+    removeButton.addEventListener("click", removeBook )
+})
+}
+
+function removeBook(e){
+    const targetRow = e.target.parentElement.parentElement 
+    console.log(targetRow);
+
+    //remove from libraryArray
+   console.log(targetRow.firstElementChild.value)
+   const index = targetRow.getAttributes("index")
+   console.log(index);
+    //remove from display
+    targetRow.remove()
 
 
+}
 
+function addRemoveButton(row){
+    const removeButton = document.createElement("button")
+    removeButton.classList.add("remove")
+    removeButton.textContent = "Remove"
+    row.appendChild(removeButton)
+}
+
+attachEventListenerToRemoveButton()
