@@ -12,11 +12,8 @@ function Book(title, author,pages,isRead){
     this.isRead = isRead;
 }
 
-
-//placeholder books
-// takeUserInput('The Bible','Shakespeare', 444)
-// takeUserInput('Chinese Manifesto','Mao Ze Dong', 555)
-
+//REFAC: create library class
+//REFAC: extract function
 
 function displayBooks(){
     const tableRows = document.querySelectorAll("tbody > tr");
@@ -43,7 +40,6 @@ function displayBooks(){
     attachEventListenerToRemoveButton()
     attachEventListenerToReadButton()
 }
-i// displayBooks()
 
 const modal = document.querySelector(".book-form-dialog")
 
