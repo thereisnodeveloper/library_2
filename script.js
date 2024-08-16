@@ -21,6 +21,7 @@ function Book(title, author, pages, isRead) {
 
 //library factory function
 class Library {
+  constructor() {}
   static displayBooks() {
     const tableRows = document.querySelectorAll('tbody > tr');
     tableRows.forEach((row) => {
@@ -55,17 +56,22 @@ class Library {
       submit: document.querySelector("button[type='submit']"),
     };
   }
+  static bulkAddEventListeners() {
+    Library.domElements.buttonAddNewBook.addEventListener('click', () => {
+      Library.domElements.modal.showModal();
+    });
+
+    Library.domElements.closeModal.addEventListener('click', () => {
+      Library.domElements.modal.close();
+    });
+
+    Library.domElements.submit.addEventListener('click', addNewBook);
+  }
 }
-// Library.domElements.
-Library.domElements.buttonAddNewBook.addEventListener('click', () => {
-  Library.domElements.modal.showModal();
-});
 
-Library.domElements.closeModal.addEventListener('click', () => {
-  Library.domElements.modal.close();
-});
-
-Library.domElements.submit.addEventListener('click', addNewBook);
+(function initiate() {
+  Library.bulkAddEventListeners();
+})();
 
 function addNewBook(e) {
   e.preventDefault();
