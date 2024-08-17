@@ -1,6 +1,8 @@
+const testElem = document.querySelector('body');
+
 const libraryArray = [];
 
-const takeUserInput = function (titleInput, authorInput, pagesInput, isReadInput) {
+const saveToLibrary = function (titleInput, authorInput, pagesInput, isReadInput) {
   libraryArray.push(new Book(titleInput, authorInput, pagesInput, isReadInput));
 };
 
@@ -11,6 +13,7 @@ function Book(title, author, pages, isRead) {
   this.pages = pages;
   this.isRead = isRead;
 }
+
 
 //TEST: add book
 //TEST: remove book
@@ -44,8 +47,8 @@ class Library {
       addReadButton(tdReadButton);
       index++;
     });
-    attachEventListenerToRemoveButton();
-    attachEventListenerToReadButton();
+    Library.attachEventListenerToRemoveButton();
+    Library.attachEventListenerToReadButton();
   }
 
   static {
@@ -54,8 +57,13 @@ class Library {
       buttonAddNewBook: document.querySelector('.new-book'),
       closeModal: document.querySelector('.close'),
       submit: document.querySelector("button[type='submit']"),
+      bookTitle: document.querySelector('#title'),
+      bookAuthor: document.querySelector('#author'),
+      bookPages: document.querySelector('#pages'),
+      bookIsRead: document.querySelector('#isread'),
     };
   }
+
   static bulkAddEventListeners() {
     Library.domElements.buttonAddNewBook.addEventListener('click', () => {
       Library.domElements.modal.showModal();
@@ -66,15 +74,46 @@ class Library {
     });
 
     Library.domElements.submit.addEventListener('click', addNewBook);
+
+    function validateForm() {
+      Library.domElements.bookTitle.addEventListener('input', ()=>{
+ 
+        /** @type {HTMLInputElement} */
+        const bookTitle = Library.domElements.bookTitle;
+        // bookTitle.validity.tooShort
+        // bookTitle.setCustomValidity('faaaak')
+        console.log('bookTitle.validationMessage:', bookTitle.validationMessage)
+
+        console.log('bookTitle.checkValidity():', bookTitle.checkValidity())
+
+      })
+    }
+    validateForm()
+  }
+
+  static attachEventListenerToRemoveButton() {
+    const removeButtons = document.querySelectorAll('.remove');
+    removeButtons.forEach((removeButton) => {
+      removeButton.addEventListener('click', removeBook);
+    });
+  }
+
+  static attachEventListenerToReadButton() {
+    const readButtons = document.querySelectorAll('.read');
+    readButtons.forEach((readButton) => {
+      readButton.addEventListener('click', readBook);
+    });
   }
 }
 
 (function initiate() {
-  Library.bulkAddEventListeners();
+  // console.log(Library.eventListenersList);
+  Library.bulkAddEventListeners(Library.eventListenersList);
 })();
 
 function addNewBook(e) {
   e.preventDefault();
+
   const formIsRead = document.querySelector('#isread');
   const forms = document.querySelectorAll('form input:not(#isread)');
   const formsArray = [];
@@ -83,23 +122,9 @@ function addNewBook(e) {
   });
   formsArray.push(formIsRead.checked);
 
-  takeUserInput(...formsArray);
+  saveToLibrary(...formsArray);
   Library.domElements.modal.close();
   Library.displayBooks();
-}
-
-function attachEventListenerToRemoveButton() {
-  const removeButtons = document.querySelectorAll('.remove');
-  removeButtons.forEach((removeButton) => {
-    removeButton.addEventListener('click', removeBook);
-  });
-}
-
-function attachEventListenerToReadButton() {
-  const readButtons = document.querySelectorAll('.read');
-  readButtons.forEach((readButton) => {
-    readButton.addEventListener('click', readBook);
-  });
 }
 
 function removeBook(e) {
@@ -139,4 +164,9 @@ function addReadButton(row) {
   row.appendChild(readButton);
 }
 
-attachEventListenerToRemoveButton();
+const domElements = {
+  modal: document.querySelector('.book-form-dialog'),
+  buttonAddNewBook: document.querySelector('.new-book'),
+  closeModal: document.querySelector('.close'),
+  submit: document.querySelector("button[type='submit']"),
+};

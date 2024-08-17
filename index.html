@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <!-- <link rel="stylesheet" href="reset.css"> -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 
-    <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/echotopia" type="text/css"/>
-
-</head>
-<body>
-<table>
-    <caption>
+    <link
+      rel="stylesheet"
+      media="screen"
+      href="https://fontlibrary.org//face/echotopia"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <table>
+      <caption>
         List of books in the library:
-    </caption>
-        <thead>
-            <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Pages</th>
-                <th scope="col">IsRead</th>
-            </tr>
-        </thead>
-    <tbody>
-
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Pages</th>
+          <th scope="col">IsRead</th>
+        </tr>
+      </thead>
+      <tbody>
         <!-- <tr>
             <td>Harry Potter and the Russian</td>
             <td>tolstoy</td>
@@ -39,34 +42,38 @@
             <td>true</td>
             
         </tr> -->
-    </tbody>
-    
-</table>
+      </tbody>
+    </table>
 
-<button class="new-book">New Book</button>
+    <button class="new-book">New Book</button>
 
-<dialog class="book-form-dialog">
-    <div class="close">✖</div>
+    <dialog class="book-form-dialog">
+      <div class="close">✖</div>
 
-    <form action="get" class="book-form">
-
+      <form action="get" class="book-form" novalidate>
         <legend><h3>Enter book information:</h3></legend>
-        <label for="title" aria-required="true">Title <input type="text"
-        id="title" name="book_title" required></label>
-        <label for="author" aria-required="true">Author <input type="text" id="author"
-        name="book_author" required></label>
-        
-        <label for="pages" aria-required="true"># of Pages <input type="number"
-        id="pages" name="book_pages" required></label>
 
-        <label for="isread" aria-required="true">Is it read? <input type="checkbox"
-        id="isread" name="book_isread" required></label>
-        
+        <label for="title" aria-required="true"
+        >Title <input type="text" id="title" name="book_title" required
+        maxlength="5" minlength="2"
+        /></label>
+        <label for="author" aria-required="true"
+          >Author <input type="text" id="author" name="book_author" required
+        /></label>
+
+        <label for="pages" aria-required="true"
+          ># of Pages <input type="number" id="pages" name="book_pages" required
+        /></label>
+
+        <label for="isread" aria-required="true"
+          >Is it read? <input type="checkbox" id="isread" name="book_isread" required
+        /></label>
+
         <button type="submit">Submit</button>
-    </form>
-    <!-- TODO:add close button to modal -->
-</dialog>
+      </form>
+      <!-- TODO:add close button to modal -->
+    </dialog>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
