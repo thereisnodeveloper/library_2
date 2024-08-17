@@ -14,7 +14,6 @@ function Book(title, author, pages, isRead) {
   this.isRead = isRead;
 }
 
-
 //TEST: add book
 //TEST: remove book
 //TEST: read book
@@ -53,17 +52,22 @@ class Library {
 
   static {
     this.domElements = {
+      form: document.querySelector('.book-form'),
       modal: document.querySelector('.book-form-dialog'),
       buttonAddNewBook: document.querySelector('.new-book'),
       closeModal: document.querySelector('.close'),
       submit: document.querySelector("button[type='submit']"),
+      /** @type {HTMLInputElement} */
       bookTitle: document.querySelector('#title'),
+      /** @type {HTMLInputElement} */
       bookAuthor: document.querySelector('#author'),
+      /** @type {HTMLInputElement} */
       bookPages: document.querySelector('#pages'),
+      /** @type {HTMLInputElement} */
       bookIsRead: document.querySelector('#isread'),
     };
   }
-
+  //ewqljewq
   static bulkAddEventListeners() {
     Library.domElements.buttonAddNewBook.addEventListener('click', () => {
       Library.domElements.modal.showModal();
@@ -73,22 +77,7 @@ class Library {
       Library.domElements.modal.close();
     });
 
-    Library.domElements.submit.addEventListener('click', addNewBook);
-
-    function validateForm() {
-      Library.domElements.bookTitle.addEventListener('input', ()=>{
- 
-        /** @type {HTMLInputElement} */
-        const bookTitle = Library.domElements.bookTitle;
-        // bookTitle.validity.tooShort
-        // bookTitle.setCustomValidity('faaaak')
-        console.log('bookTitle.validationMessage:', bookTitle.validationMessage)
-
-        console.log('bookTitle.checkValidity():', bookTitle.checkValidity())
-
-      })
-    }
-    validateForm()
+    Library.domElements.submit.addEventListener('click', submitFormNewBook);
   }
 
   static attachEventListenerToRemoveButton() {
@@ -111,20 +100,47 @@ class Library {
   Library.bulkAddEventListeners(Library.eventListenersList);
 })();
 
-function addNewBook(e) {
-  e.preventDefault();
+//TODO: add custom error msg
+function throwValidationError() {
+  Library.domElements.bookTitle.setCustomValidity('invalid book title');
+  // throw new Error('Form aint valid, my g');
+  // alert('Form aint valid, my g');
+}
 
+function submitFormNewBook(e) {
+  Library.domElements.bookTitle.setCustomValidity('');
+
+
+  if (!Library.domElements.bookTitle.validity.valid) {
+    // Library.domElements.bookTitle.validationMessage = 'invalid book title';
+    Library.domElements.bookTitle.setCustomValidity('invalid book title');
+    // Library.domElements.bookTitle.reportValidity()
+
+    return;
+  } else {
+    Library.domElements.bookTitle.setCustomValidity('');
+
+    //FIXME:
+    //submit form
+    // e.preventDefault();
+
+    const formDataArray = extractFormData();
+
+    saveToLibrary(...formDataArray);
+    Library.domElements.modal.close();
+    Library.displayBooks();
+  }
+}
+
+function extractFormData() {
   const formIsRead = document.querySelector('#isread');
-  const forms = document.querySelectorAll('form input:not(#isread)');
-  const formsArray = [];
-  forms.forEach((formElement) => {
-    formsArray.push(formElement.value);
+  const formControls = document.querySelectorAll('form input:not(#isread)');
+  const formDataArray = [];
+  formControls.forEach((formElement) => {
+    formDataArray.push(formElement.value);
   });
-  formsArray.push(formIsRead.checked);
-
-  saveToLibrary(...formsArray);
-  Library.domElements.modal.close();
-  Library.displayBooks();
+  formDataArray.push(formIsRead.checked);
+  return formDataArray;
 }
 
 function removeBook(e) {
