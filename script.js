@@ -6,7 +6,7 @@ const saveToLibrary = function (titleInput, authorInput, pagesInput, isReadInput
   libraryArray.push(new Book(titleInput, authorInput, pagesInput, isReadInput));
 };
 
-//book constructor
+// book constructor
 function Book(title, author, pages, isRead) {
   this.title = title;
   this.author = author;
@@ -14,16 +14,17 @@ function Book(title, author, pages, isRead) {
   this.isRead = isRead;
 }
 
-//TEST: add book
-//TEST: remove book
-//TEST: read book
+// TEST: add book
+// TEST: remove book
+// TEST: read book
 
-//REFAC: create library Object
-//REFAC: extract function
+// REFAC: create library Object
+// REFAC: extract function
 
-//library factory function
+// library factory function
 class Library {
   constructor() {}
+
   static displayBooks() {
     const tableRows = document.querySelectorAll('tbody > tr');
     tableRows.forEach((row) => {
@@ -68,7 +69,8 @@ class Library {
       bookIsRead: document.querySelector('#isread'),
     };
   }
-  //ewqljewq
+
+  // ewqljewq
   static bulkAddEventListeners() {
     Library.domElements.buttonAddNewBook.addEventListener('click', () => {
       Library.domElements.modal.showModal();
@@ -79,6 +81,7 @@ class Library {
     });
 
     Library.domElements.submit.addEventListener('click', submitFormNewBook);
+    Library.domElements.bookPages.addEventListener('input', isBookPagesValid);
   }
 
   static attachEventListenerToRemoveButton() {
@@ -101,7 +104,7 @@ class Library {
   Library.bulkAddEventListeners(Library.eventListenersList);
 })();
 
-//TODO: add custom error msg
+// TODO: add custom error msg
 function throwValidationError() {
   Library.domElements.bookTitle.setCustomValidity('invalid book title');
   // throw new Error('Form aint valid, my g');
@@ -113,7 +116,7 @@ function submitFormNewBook(evt) {
 
   // Library.domElements.bookAuthor.validity.value;
 
-  //check book title
+  // check book title
 
   // function isBookTitleValid() {
   //   Library.domElements.bookTitle.setCustomValidity('');
@@ -137,25 +140,17 @@ function submitFormNewBook(evt) {
   //   }
   // }
 
-  //TODO: check everytime input is changed, not submit
-  function isBookPagesValid() {
-    const bookPages = Library.domElements.bookPages;
-    bookPages.setCustomValidity('');
-    if(bookPages.validity.typeMismatch)
-
-    if(!bookPages.validity.valid) {
-    }
-  }
+  // TODO: check everytime input is changed, not submit
 
   function isFormValid() {
-    Library.domElements.bookIsRead.willValidate = false
+    Library.domElements.bookIsRead.willValidate = false;
     // Library.domElements.bookIsRead.formNoValidate
     return Library.domElements.form.checkValidity();
   }
   console.log('isFormValid():', isFormValid());
 
-  //FIXME:
-  //submit form
+  // FIXME:
+  // submit form
   if (
     isFormValid()
 
@@ -184,10 +179,10 @@ function extractFormData() {
 function removeBook(e) {
   const targetRow = e.target.parentElement.parentElement;
 
-  //remove from libraryArray
+  // remove from libraryArray
   const index = targetRow.getAttribute('index');
   libraryArray.splice(index, 1);
-  //remove from display
+  // remove from display
   targetRow.remove();
 }
 
@@ -195,7 +190,7 @@ function readBook(e) {
   const targetRow = e.target.parentElement.parentElement;
   const index = targetRow.getAttribute('index');
 
-  //toggle isRead
+  // toggle isRead
   if (libraryArray[index].isRead === true) {
     libraryArray[index].isRead = false;
   } else {
@@ -224,3 +219,28 @@ const domElements = {
   closeModal: document.querySelector('.close'),
   submit: document.querySelector("button[type='submit']"),
 };
+
+function isBookPagesValid() {
+  const { bookPages } = Library.domElements;
+  bookPages.setCustomValidity('');
+  // if(bookPages.type)
+  // console.log(bookPages.type);
+  // if (bookPages.type !== 'number') {
+  console.log(Number(bookPages.value));
+  if (isNaN(Number(bookPages.value)) || Number(bookPages.value) === 0) {
+    bookPages.setCustomValidity('custom error, not valid');
+
+    console.log(document.querySelector('.validation-msg'));
+
+    if (!document.querySelector('.validation-msg')) {
+      const validationMsg = document.createElement('span');
+      validationMsg.classList.add('validation-msg');
+      bookPages.after(validationMsg);
+      validationMsg.textContent = bookPages.validationMessage;
+    }
+  } else {
+    document.querySelectorAll('.validation-msg').forEach((dom) => {
+      dom.remove();
+    });
+  }
+}
