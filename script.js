@@ -52,6 +52,7 @@ class Library {
 
   static {
     this.domElements = {
+      /** @type {HTMLFormElement} */
       form: document.querySelector('.book-form'),
       modal: document.querySelector('.book-form-dialog'),
       buttonAddNewBook: document.querySelector('.new-book'),
@@ -107,23 +108,60 @@ function throwValidationError() {
   // alert('Form aint valid, my g');
 }
 
-function submitFormNewBook(e) {
-  Library.domElements.bookTitle.setCustomValidity('');
+function submitFormNewBook(evt) {
+  evt.preventDefault();
 
+  // Library.domElements.bookAuthor.validity.value;
 
-  if (!Library.domElements.bookTitle.validity.valid) {
-    // Library.domElements.bookTitle.validationMessage = 'invalid book title';
-    Library.domElements.bookTitle.setCustomValidity('invalid book title');
-    // Library.domElements.bookTitle.reportValidity()
+  //check book title
 
-    return;
-  } else {
-    Library.domElements.bookTitle.setCustomValidity('');
+  // function isBookTitleValid() {
+  //   Library.domElements.bookTitle.setCustomValidity('');
+  //   if (!Library.domElements.bookTitle.validity.valid) {
+  //     Library.domElements.bookTitle.setCustomValidity('3-5 characters');
+  //     return false;
+  //   } else {
+  //     Library.domElements.bookTitle.setCustomValidity('');
+  //     return true;
+  //   }
+  // }
 
-    //FIXME:
-    //submit form
-    // e.preventDefault();
+  // function isBookAuthorValid() {
+  //   const bookAuthor = Library.domElements.bookAuthor.validity;
+  //   if (bookAuthor.valueMissing || bookAuthor.patternMismatch) {
+  //     console.log('pattern mismatch!');
+  //     Library.domElements.bookAuthor.reportValidity();
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
+  //TODO: check everytime input is changed, not submit
+  function isBookPagesValid() {
+    const bookPages = Library.domElements.bookPages;
+    bookPages.setCustomValidity('');
+    if(bookPages.validity.typeMismatch)
+
+    if(!bookPages.validity.valid) {
+    }
+  }
+
+  function isFormValid() {
+    Library.domElements.bookIsRead.willValidate = false
+    // Library.domElements.bookIsRead.formNoValidate
+    return Library.domElements.form.checkValidity();
+  }
+  console.log('isFormValid():', isFormValid());
+
+  //FIXME:
+  //submit form
+  if (
+    isFormValid()
+
+    // isBookTitleValid() && isBookAuthorValid()
+  ) {
+    // evt.preventDefault();
     const formDataArray = extractFormData();
 
     saveToLibrary(...formDataArray);
